@@ -1,0 +1,26 @@
+
+
+
+2. add to playlist -> do this before UI changes
+
+3. Play songs from playlist ( difficult )
+
+3. toggle buttons -> { is it is playing then show pause button, if pause is clicked change it to play and same for volume keys.}
+
+4. disable buttons -> if something is not allowed then disable the button this way size will be 5 buttons always
+
+5. change button color -> some are grey
+
+6. Maintain state of every tab under consideration (changing name, or buttons)
+
+7. Add button to go to tab and come back to working tab.
+
+
+---------------------------- V1 Done ---------------------------------
+
+1. make buttons working -> executeScript and then click function.
+
+
+
+
+----------------------------- Done -----------------------------------

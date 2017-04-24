@@ -1,0 +1,86 @@
+body {
+    max-height: 700px;
+    width: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.header {
+    border-bottom: 2px groove grey;
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.name {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+}
+
+.player {
+    display: block;
+    width: 280px;
+    height: 100px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.playerList {
+
+}
+
+.playerIcon {
+    height: 50px;
+    width: 50px;
+    float: left;
+    background-color: white
+    /*display: inline;*/
+}
+
+.playerItem {
+    /*padding-top: 15px;*/
+    float: left;
+    width: 225px;
+    white-space: nowrap;
+    overflow-x: visible;
+    font-size: 15px;
+}
+
+.movingText {
+    /*overflow-x: hidden;*/
+    position: relative;
+    z-index: -1;
+    /*animation-duration: 10s;*/
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+/*@keyframes moveText {
+    from {left:301px;}
+    to {left: -301px;}
+}*/
+
+.buttonsHolder {
+    display: block;
+    width: 280px;
+    height: 100px;
+    margin-top: 10px;
+}
+
+.buttonsList {
+    width: 280px;
+    height: 64px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.button {
+    display: inline;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.button-icon {
+    height: 25px;
+    width: 25px;
+}

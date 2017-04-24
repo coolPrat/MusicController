@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self'  https://www.google.com; object-src 'self'",
+  "name": "Extension 1",
+  "description": "This extension will alert url of current open tab",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_icon": "img/icon.png",
+   "default_popup": "html/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://fonts.googleapis.com/*"],
+      "css": ["css/popup.css"],
+      "js": ["js/jquery-3.2.1.min.js", "js/popup.js", "js/commons.js", "js/mc_youtube.js"]
+    }
+  ],
+  "permissions": [
+   "tabs",
+   "storage",
+   "bookmarks",
+   "http://*/*",
+   "https://*/*"
+   ]
+}

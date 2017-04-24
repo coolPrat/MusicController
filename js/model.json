@@ -1,0 +1,15 @@
+{
+    "playlist_id" : "",
+    "mc_playlist" : [],
+    "supportedList" : ["youtube", "saavn", "spotify"],
+    "cssFile" : "popup.css",
+    "button_sequence" : ["prev", "play", "pause", "next"],
+    "mc_button_sequence" : ["add-playlist", "remove-playlist"],
+    "youtube_buttons" : {
+        "prev": [".ytp-button-prev", ".ytp-prev-button"],
+        "play": [".ytp-button-play", ".ytp-play-button"],
+        "pause": [".ytp-button-pause", ".ytp-button-play", ".ytp-play-button", null],
+        "next": [".ytp-button-next", ".ytp-next-button"],
+        "replay": [null, ".ytp-play-button[title='Replay']"]
+    }
+}

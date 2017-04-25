@@ -1,10 +1,11 @@
 var model = null;
 var dataLoaded = false;
 var globalPlayList = [];
+var buttonPresent = null;
 
 function addMCScript(tab) {
-    domain = getDomain(tab);
-    scriptName = "mc_" + domain + ".js";
+    var domain = getDomain(tab);
+    var scriptName = "mc_" + domain + ".js";
     chrome.tabs.executeScript(tab.id, {file: "js/" + scriptName});
 }
 
@@ -36,16 +37,17 @@ function isSupported(tab) {
 }
 
 function getDomain(tab) {
-    url = tab.url;
-    wIndex = url.indexOf("www.");
+    var domain = "";
+    var url = tab.url;
+    var wIndex = url.indexOf("www.");
     if (wIndex > 0) {
         domain = url.substring(wIndex + 4, url.indexOf(".", wIndex + 4));
     } else {
-        httpIndex = url.indexOf("http://");
+        var httpIndex = url.indexOf("http://");
         if (httpIndex > 0) {
             domain = url.substring(httpIndex + 6, url.indexOf(".", httpIndex + 6));
         } else {
-            httpsIndex = url.indexOf("https://");
+            var httpsIndex = url.indexOf("https://");
             domain = url.substring(httpIndex + 7, url.indexOf(".", httpIndex + 7));
         }
     }
@@ -92,9 +94,9 @@ function changeTabTo(tab) {
 function getPlayer(tab, windowId) {
     var player = document.createElement("div");
     player.setAttribute("class","player");
-    icon = makeIcon(tab, windowId);
-    item = makeItem(tab);
-    buttons = makeButtons(tab);
+    var icon = makeIcon(tab, windowId);
+    var item = makeItem(tab);
+    var buttons = makeButtons(tab);
 
     player.appendChild(icon);
     player.appendChild(item);
@@ -108,7 +110,7 @@ function makeIcon(tab, windowId) {
     var playerIcon = document.createElement("img");
     playerIcon.setAttribute("class","playerIcon");
     playerIcon.id = "playerIcon";
-    domain = getDomain(tab);
+    var domain = getDomain(tab);
     playerIcon.setAttribute("src", "../img/" + domain + ".png");
     playerIcon.setAttribute("alt", domain + "->");
     playerIcon.setAttribute("data-winId", windowId);
@@ -140,30 +142,38 @@ function makeItem(tab) {
 function makeButtons(tab) {
     var buttonsHolder = document.createElement("div");
     buttonsHolder.setAttribute("class", "buttonsHolder");
-    buttons = getButtons(tab);
+    var buttons = getButtons(tab);
     buttonsHolder.appendChild(buttons);
-    mcButtons = getMcButtons(tab);
-    buttonsHolder.appendChild(mcButtons);
+    // mcButtons = getMcButtons(tab);
+    // buttonsHolder.appendChild(mcButtons);
     return buttonsHolder;
 }
 
 function getButtons(tab) {
-    domain = getDomain(tab);
-    buttonName = domain + "_buttons";
-    buttons = model.button_sequence;
-    domainButtons = model[buttonName];
+    var domain = getDomain(tab);
+    var buttonName = domain + "_buttons";
+    var buttons = model.button_sequence;
+    var domainButtons = model[buttonName];
 
-    buttonsList = document.createElement("div");
+    var buttonsList = document.createElement("div");
     buttonsList.setAttribute("class", "buttonsList");
 
     for (var i = 0; i < buttons.length; i++) {
-        buttonType = buttons[i];
-        button = document.createElement("div");
+        var buttonType = buttons[i];
+        var button = document.createElement("div");
         button.setAttribute("class", "button");
 
-        buttonImg = getButtonIcon(buttonType);
+        var isPresent = getIsPresentFunctionOk(domain, buttonType, domainButtons[buttonType]);
 
-        selectorObj = {operation: buttonType, selector: domainButtons[buttonType]};
+        chrome.tabs.executeScript(tab.id, {code : isPresent}, function(result){
+            if (result[0]) {
+                console.log("aala");
+            }
+        });
+
+        var buttonImg = getButtonIcon(buttonType);
+
+        var selectorObj = {operation: buttonType, selector: domainButtons[buttonType]};
 
         // selectorObj = new SelectorObj(buttonType, domainButtons[buttonType]);
 
@@ -177,10 +187,23 @@ function getButtons(tab) {
     return buttonsList;
 }
 
-function temp(tab, i) {
-    codeLine = "console.log(" + (tab.id + i)  +");";
-    // var codeToSend = new String(codeLine);
-    return function(){chrome.tabs.executeScript(tab.id, {code : codeLine.valueOf()});};
+function temp(result) {
+    console.log(result);
+    buttonPresent = result[0];
+}
+
+function getIsPresentFunctionOk(domain, buttonType, domainButtons) {
+    codeLine = 'mc_' + domain + '_isElementPresent(';
+    if (domainButtons.constructor.name === "Array") {
+        codeLine += '["' + domainButtons.join().replace(/,/g, '","') + '"]';
+    } else {
+        codeLine += domainButtons;
+    }
+    codeLine += ');';
+
+    codeLineString = new String(codeLine);
+
+    return codeLineString.valueOf();
 }
 
 function sendClickCommand(tab, selector) {
@@ -212,9 +235,9 @@ function getButtonIcon(type) {
 
 function getMcButtons(tab) {
 
-    console.log(globalPlayList);
-    console.log(globalPlayList[0]);
-    console.log(globalPlayList.indexOf(tab.url));
+    // console.log(globalPlayList);
+    // console.log(globalPlayList[0]);
+    // console.log(globalPlayList.indexOf(tab.url));
 
     if (globalPlayList.indexOf(tab.url) != -1) {
         button.setAttribute("class", "button-icon mc_remove_playlist");

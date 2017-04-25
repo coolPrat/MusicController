@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'  https://www.google.com; object-src 'self'",
-  "name": "Extension 1",
-  "description": "This extension will alert url of current open tab",
+  "name": "Music Controller",
+  "description": "This extension will let you control any tabs playing music",
   "version": "1.0",
 
   "browser_action": {

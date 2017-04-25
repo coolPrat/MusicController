@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   checkAndCreatePlaylist();
-  getPlaylist();
+  // getPlaylist();
 
   chrome.windows.getAll({populate:true},function(windows){
   windows.forEach(function(window){

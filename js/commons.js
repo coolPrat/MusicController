@@ -165,11 +165,12 @@ function getButtons(tab) {
 
         var isPresent = getIsPresentFunctionOk(domain, buttonType, domainButtons[buttonType]);
 
-        chrome.tabs.executeScript(tab.id, {code : isPresent}, function(result){
-            if (result[0]) {
-                console.log("aala");
-            }
-        });
+        // TODO: load data and then use it here
+        // chrome.tabs.executeScript(tab.id, {code : isPresent}, function(result){
+        //     if (result[0]) {
+        //         console.log("aala");
+        //     }
+        // });
 
         var buttonImg = getButtonIcon(buttonType);
 
